@@ -8,7 +8,7 @@ public class Student extends Person {
     private double gpa;
     private Map<Course, Double> courses;
 
-    public Student(String name, String id, double gpa) {
+    public Student(String name, String id) {
         super(name, id);
         this.courses = new HashMap<>();
         this.gpa = 0.0;
@@ -36,7 +36,11 @@ public class Student extends Person {
     public Map<Course, Double> getCourses() {
         return courses;
     }
-    public abstract double calculateTuition();
+
+    1
+    public double calculateTuition() {
+        return 2000; // fixed flat tuition
+    }
 
     @Override
     public String getRole() {

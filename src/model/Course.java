@@ -3,9 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-import exception.CourseFullException;
-import exception.StudentAlreadyEnrolledException;
-
 public class Course {
 
     private String code;
@@ -22,25 +19,31 @@ public class Course {
         this.students = new ArrayList<>();
     }
 
-    public void enrollStudent(Student student)
-            throws CourseFullException, StudentAlreadyEnrolledException {
+    // Simple enrollment (Lab 1 only)
+    public void enrollStudent(Student student) {
 
-        if (students.contains(student)) {
-            throw new StudentAlreadyEnrolledException("Student already enrolled.");
+        if (!students.contains(student) && students.size() < capacity) {
+            students.add(student);
         }
-
-        if (students.size() >= capacity) {
-            throw new CourseFullException("Course is full.");
-        }
-
-        students.add(student);
     }
 
     public List<Student> getStudents() {
         return students;
     }
 
+    public String getCode() {
+        return code;
+    }
+
     public String getTitle() {
         return title;
+    }
+
+    public int getCredits() {
+        return credits;
+    }
+
+    public int getCapacity() {
+        return capacity;
     }
 }
