@@ -3,12 +3,12 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Student extends Person {
+public class Student extends Person {
 
     private double gpa;
     private Map<Course, Double> courses;
 
-    public Student(String name, String id) {
+    public Student(String name, String id, double gpa) {
         super(name, id);
         this.courses = new HashMap<>();
         this.gpa = 0.0;
