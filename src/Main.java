@@ -1,45 +1,118 @@
-import model.*;
+package main;
 
-public class Main {
+import model.*;
+import service.UniversityManager;
+import util.FileManager;
+import exception.*;
+
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Main{
 
     public static void main(String[] args) {
 
-        // Create Students
-        Student undergrad = new UndergraduateStudent("Alice", "U001");
-        Student grad = new GraduateStudent("Bob", "G001", 6);
+        UniversityManager manager = new UniversityManager();
+        Scanner scanner = new Scanner(System.in);
 
-        // Create Courses
-        Course javaCourse = new Course("CS101", "Java Programming", 3, 30);
-        Course dbCourse = new Course("CS202", "Databases", 3, 30);
+        try {
+            FileManager.loadStudents(manager.getStudents());
+        } catch (IOException e) {
+            System.out.println("No previous data found.");
+        }
 
-        // Enroll students in courses
-        javaCourse.enrollStudent(undergrad);
-        javaCourse.enrollStudent(grad);
+        while (true) {
 
-        dbCourse.enrollStudent(undergrad);
+            System.out.println("\n1. Register Student");
+            System.out.println("2. Create Course");
+            System.out.println("3. Enroll Student");
+            System.out.println("4. View Student Record");
+            System.out.println("5. Generate Dean's List");
+            System.out.println("6. Save and Exit");
 
-        // Add grades (Student keeps track using Map)
-        undergrad.addCourse(javaCourse, 3.8);
-        undergrad.addCourse(dbCourse, 3.6);
+            int choice = scanner.nextInt();
+            scanner.nextLine();
 
-        grad.addCourse(javaCourse, 3.9);
+            switch (choice) {
 
-        // Display Results
-        System.out.println("===== LAB 1 TEST =====");
+                case 1:
+                    System.out.print("Name: ");
+                    String name = scanner.nextLine();
 
-        System.out.println("\nUndergraduate Student:");
-        System.out.println("Name: " + undergrad.getName());
-        System.out.println("Tuition: " + undergrad.calculateTuition());
-        System.out.println("GPA: " + undergrad.getGpa());
+                    System.out.print("Email: ");
+                    String email = scanner.nextLine();
 
-        System.out.println("\nGraduate Student:");
-        System.out.println("Name: " + grad.getName());
-        System.out.println("Tuition: " + grad.calculateTuition());
-        System.out.println("GPA: " + grad.getGpa());
+                    System.out.print("Student ID: ");
+                    String id = scanner.nextLine();
 
-        System.out.println("\nCourse Roster (Java):");
-        for (Student s : javaCourse.getStudents()) {
-            System.out.println("- " + s.getName());
+                    System.out.print("Department: ");
+                    String dept = scanner.nextLine();
+
+                    System.out.print("Type (1=Undergrad, 2=Graduate): ");
+                    int type = scanner.nextInt();
+                    scanner.nextLine();
+
+                    Student student = (type == 1)
+                            ? new UndergraduateStudent(name, email, id, dept)
+                            : new GraduateStudent(name, email, id, dept);
+
+                    manager.registerStudent(student);
+                    break;
+
+                case 2:
+                    System.out.print("Course Code: ");
+                    String code = scanner.nextLine();
+
+                    System.out.print("Title: ");
+                    String title = scanner.nextLine();
+
+                    System.out.print("Credits: ");
+                    int credits = scanner.nextInt();
+
+                    System.out.print("Capacity: ");
+                    int capacity = scanner.nextInt();
+                    scanner.nextLine();
+
+                    manager.createCourse(
+                            new Course(code, title, credits, capacity));
+                    break;
+
+                case 3:
+                    try {
+                        System.out.print("Student ID: ");
+                        String sid = scanner.nextLine();
+
+                        System.out.print("Course Code: ");
+                        String ccode = scanner.nextLine();
+
+                        manager.enrollStudentInCourse(sid, ccode);
+                        System.out.println("Enrollment successful.");
+
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+
+                case 4:
+                    manager.getStudents().forEach(s -> {
+                        System.out.println(s.getStudentID() +
+                                " | " + s.getName() +
+                                " | GPA: " + s.getGpa());
+                    });
+                    break;
+
+                case 5:
+                    manager.generateDeansList();
+                    break;
+
+                case 6:
+                    try {
+                        FileManager.saveStudents(manager.getStudents());
+                    } catch (IOException e) {
+                        System.out.println("Error saving data.");
+                    }
+                    return;
+            }
         }
     }
 }

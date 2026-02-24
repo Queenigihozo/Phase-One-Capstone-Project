@@ -1,47 +1,49 @@
 package model;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-public abstract class Student extends Person {
+public class Student extends Person {
 
-    private String studentID;
-    private String department;
     private double gpa;
+    private Map<Course, Double> courses;
 
-    private Map<Course, Double> enrolledCourses = new HashMap<>();
-
-    public Student(String name, String email,
-                   String studentID, String department) {
-        super(name, email);
-        this.studentID = studentID;
-        this.department = department;
+    public Student(String name, String id) {
+        super(name, id);
+        this.courses = new HashMap<>();
+        this.gpa = 0.0;
     }
 
-    public String getStudentID() { return studentID; }
-    public String getDepartment() { return department; }
-    public double getGpa() { return gpa; }
-
-    public void enrollCourse(Course course) {
-        enrolledCourses.put(course, 0.0);
-    }
-
-    public void assignGrade(Course course, double grade) {
-        enrolledCourses.put(course, grade);
+    public void addCourse(Course course, double grade) {
+        courses.put(course, grade);
         calculateGPA();
     }
 
     private void calculateGPA() {
         double total = 0;
-        for (double grade : enrolledCourses.values()) {
+        for (double grade : courses.values()) {
             total += grade;
         }
-        gpa = enrolledCourses.size() > 0 ?
-                total / enrolledCourses.size() : 0;
+        if (!courses.isEmpty()) {
+            gpa = total / courses.size();
+        }
     }
 
-    public Map<Course, Double> getEnrolledCourses() {
-        return enrolledCourses;
+    public double getGpa() {
+        return gpa;
     }
 
-    public abstract double calculateTuition();
+    public Map<Course, Double> getCourses() {
+        return courses;
+    }
+
+    1
+    public double calculateTuition() {
+        return 2000; // fixed flat tuition
+    }
+
+    @Override
+    public String getRole() {
+        return "Student";
+    }
 }
