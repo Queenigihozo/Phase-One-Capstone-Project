@@ -46,4 +46,7 @@ public class Student extends Person {
     public String getRole() {
         return "Student";
     }
+
+    public void enrollCourse(Course course) {
+    }
 }
