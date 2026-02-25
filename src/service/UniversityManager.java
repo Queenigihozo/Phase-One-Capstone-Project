@@ -21,13 +21,12 @@ public class UniversityManager {
     public void enrollStudentInCourse(String studentID, String courseCode, double grade)
             throws CourseFullException, StudentAlreadyEnrolledException {
 
-        // Find student correctly
         Student student = students.stream()
                 .filter(s -> s.getId().equals(studentID))
                 .findFirst()
                 .orElse(null);
 
-        // Find course
+
         Course course = courses.stream()
                 .filter(c -> c.getCode().equals(courseCode))
                 .findFirst()
@@ -43,10 +42,6 @@ public class UniversityManager {
         if (course.getStudents().contains(student))
             throw new StudentAlreadyEnrolledException("Student already enrolled.");
 
-        // Add student to course
-//        course.addStudent(student);
-
-        // Add course + grade to student (THIS calculates GPA)
         student.addCourse(course, grade);
     }
 

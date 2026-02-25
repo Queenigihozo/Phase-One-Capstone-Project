@@ -13,9 +13,9 @@ public class FileManager {
 
         for (Student s : students) {
             writer.println(
-                    s.getStudentID() + "," +
+                    s.getId() + "," +
                             s.getName() + "," +
-                            s.getDepartment() + "," +
+//                            s.getDepartment() + "," +
                             s.getGpa()
             );
         }
@@ -31,15 +31,17 @@ public class FileManager {
 
         Scanner scanner = new Scanner(file);
 
-        while (scanner.hasNextLine()) {
-            String[] data = scanner.nextLine().split(",");
-            students.add(
-                    new UndergraduateStudent(
-                            data[1], "loaded@email.com",
-                            data[0], data[2]
-                    )
-            );
-        }
-        scanner.close();
+//        while (scanner.hasNextLine()) {
+//            String[] data = scanner.nextLine().split(",");
+//            students.add(
+//                    new UndergraduateStudent(
+//                            data[1], "loaded@email.com",
+//                            data[0], data[2]
+//                    )
+//            );
+//        }
+//        scanner.close();
+//    }
+
     }
 }

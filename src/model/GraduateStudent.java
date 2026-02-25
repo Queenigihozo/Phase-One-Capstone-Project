@@ -2,15 +2,15 @@ package model;
 
 public class GraduateStudent extends Student {
 
-    private int credits;
+//    private int credits;
 
-    public GraduateStudent(String name, String id, int credits) {
+    public GraduateStudent(String name, String id) {
         super(name, id);
-        this.credits = credits;
+//        this.credits = credits;
     }
 
-    @Override
-    public double calculateTuition() {
-        return (credits * 300) + 1000;
-    }
+//    @Override
+//    public double calculateTuition() {
+//        return (credits * 300) + 1000;
+//    }
 }
