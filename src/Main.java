@@ -1,5 +1,3 @@
-package main;
-
 import model.*;
 import service.UniversityManager;
 import util.FileManager;
@@ -15,7 +13,7 @@ public class Main {
         UniversityManager manager = new UniversityManager();
         Scanner scanner = new Scanner(System.in);
 
-        // Load saved data
+
         try {
             FileManager.loadStudents(manager.getStudents());
             System.out.println("Previous data loaded successfully.");
@@ -45,11 +43,10 @@ public class Main {
             }
 
             choice = scanner.nextInt();
-            scanner.nextLine(); // clear buffer
+            scanner.nextLine();
 
             switch (choice) {
 
-                // ================= REGISTER STUDENT =================
                 case 1:
 
                     System.out.print("Enter Name: ");
@@ -83,7 +80,6 @@ public class Main {
                     System.out.println("Student registered successfully.");
                     break;
 
-                // ================= CREATE COURSE =================
                 case 2:
 
                     System.out.print("Enter Course Code: ");
@@ -105,7 +101,6 @@ public class Main {
                     System.out.println("Course created successfully.");
                     break;
 
-                // ================= ENROLL STUDENT =================
                 case 3:
 
                     try {
@@ -137,7 +132,6 @@ public class Main {
 
                     break;
 
-                // ================= VIEW STUDENTS =================
                 case 4:
 
                     if (manager.getStudents().isEmpty()) {
@@ -155,12 +149,10 @@ public class Main {
                     }
                     break;
 
-                // ================= DEAN'S LIST =================
                 case 5:
                     manager.generateDeansList();
                     break;
 
-                // ================= SAVE AND EXIT =================
                 case 6:
 
                     try {

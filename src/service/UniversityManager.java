@@ -42,10 +42,6 @@ public class UniversityManager {
         if (course.getStudents().contains(student))
             throw new StudentAlreadyEnrolledException("Student already enrolled.");
 
-
-//        course.addStudent(student);
-
-        // Add course + grade to student (THIS calculates GPA)
         student.addCourse(course, grade);
     }
 
