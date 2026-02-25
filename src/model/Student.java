@@ -37,7 +37,6 @@ public class Student extends Person {
         return courses;
     }
 
-    1
     public double calculateTuition() {
         return 2000; // fixed flat tuition
     }
