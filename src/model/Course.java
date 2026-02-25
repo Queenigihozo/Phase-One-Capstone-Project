@@ -19,7 +19,9 @@ public class Course {
         this.students = new ArrayList<>();
     }
 
-    public void enrollStudent(Student student) {
+    public void
+
+    enrollStudent(Student student) {
 
         if (!students.contains(student) && students.size() < capacity) {
             students.add(student);

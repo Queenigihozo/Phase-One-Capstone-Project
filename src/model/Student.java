@@ -3,15 +3,15 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Student extends Person {
+public abstract class Student extends Person {
 
     private double gpa;
     private Map<Course, Double> courses;
 
     public Student(String name, String id) {
         super(name, id);
-        this.courses = new HashMap<>();
         this.gpa = 0.0;
+        this.courses = new HashMap<>();
     }
 
     public void addCourse(Course course, double grade) {
@@ -37,9 +37,7 @@ public class Student extends Person {
         return courses;
     }
 
-    public double calculateTuition() {
-        return 2000; // fixed flat tuition
-    }
+    public abstract double calculateTuition();
 
     @Override
     public String getRole() {
@@ -47,5 +45,6 @@ public class Student extends Person {
     }
 
     public void enrollCourse(Course course) {
+
     }
 }
