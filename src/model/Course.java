@@ -19,7 +19,6 @@ public class Course {
         this.students = new ArrayList<>();
     }
 
-    // Simple enrollment (Lab 1 only)
     public void enrollStudent(Student student) {
 
         if (!students.contains(student) && students.size() < capacity) {
